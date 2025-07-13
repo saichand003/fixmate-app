@@ -11,16 +11,20 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      const res = await axios.post("http://localhost:4000/api/auth/login", form);
-      console.log("✅ Login success:", res.data);
-      alert("Login successful!");
-      // TODO: Save token to localStorage/cookie
-      router.push("/dashboard"); // Go to dashboard after login
+        const res = await axios.post("http://localhost:4000/api/auth/login", form);
+        const { token } = res.data;
+
+        // ✅ Save token to localStorage
+        localStorage.setItem("token", token);
+
+        alert("Login successful!");
+        router.push("/dashboard");
     } catch (err: any) {
-      console.error("❌ Login failed:", err.response?.data || err.message);
-      setError(err.response?.data?.error || "Login failed");
+        console.error("❌ Login failed:", err.response?.data || err.message);
+        setError(err.response?.data?.error || "Login failed");
     }
-  };
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">

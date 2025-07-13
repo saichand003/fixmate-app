@@ -1,0 +1,4 @@
+# OS & Editor stuff
+.DS_Store
+.vscode/
+.idea/
